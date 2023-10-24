@@ -42,9 +42,9 @@ export class ProductController {
         return res.status(jsonResponse.status).json(jsonResponse);
     }
 
-    @Get('/getAll')
-    async getAllProducts(@Res() res): Promise<JSON> {
-        const products = await this.productService.getProducts();
+    @Get('/getall/:id')
+    async getAllProducts(@Res() res, @Param('id') id): Promise<JSON> {
+        const products = await this.productService.getProducts(id);
 
         return res.status(HttpStatus.OK).json({
             data: products,

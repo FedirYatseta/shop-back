@@ -4,7 +4,7 @@ import { ShopService } from './shop.service';
 
 
 @Controller('shop')
-export class UserController {
+export class ShopController {
 
     constructor(private shopService: ShopService) { }
 

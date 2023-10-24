@@ -9,7 +9,6 @@ export class PhotoController {
     @Patch('/create')
     @UseInterceptors(FileInterceptor('file'))
     async uploadImageToCloudinary(@UploadedFile() file: Express.Multer.File | any) {
-        console.log('Express.Multer', file);
         return await this.cloudinary.uploadImage(file).catch((e) => {
             throw new BadRequestException('Invalid file type.');
         });

@@ -5,6 +5,10 @@ export const ProductSchema = new Schema({
         type: String,
         required: true
     },
+    idShop: {
+        type: String,
+        required: true
+    },
     title: {
         type: String,
         required: true
