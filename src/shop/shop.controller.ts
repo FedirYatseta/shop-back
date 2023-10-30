@@ -11,23 +11,23 @@ export class ShopController {
     @Post('/create')
     async createShop(@Res() res, @Body() createShopDTO: CreateShopDTO): Promise<JSON> {
 
-        const createdUser = await this.shopService.createShop(createShopDTO);
+        const createdShop = await this.shopService.createShop(createShopDTO);
 
         return res.status(HttpStatus.OK).json({
-            data: createdUser,
+            data: createdShop,
             message: 'Product was successfully created.',
             status: HttpStatus.OK
         });
     }
 
     @Delete('/:id')
-    async deleteUser(@Res() res, @Param('id') id): Promise<JSON> {
+    async deleteShop(@Res() res, @Param('id') id): Promise<JSON> {
         let jsonResponse;
 
         try {
-            const deletedUser = this.shopService.deleteShop(id);
+            const deletedShop = this.shopService.deleteShop(id);
             jsonResponse = {
-                data: deletedUser,
+                data: deletedShop,
                 message: `Product with id ${id} was deleted.`,
                 status: HttpStatus.OK
             }
@@ -43,24 +43,24 @@ export class ShopController {
     }
 
     @Get('/getall')
-    async getAllUsers(@Res() res): Promise<JSON> {
-        const users = await this.shopService.getShops();
+    async getAllShops(@Res() res): Promise<JSON> {
+        const shops = await this.shopService.getShops();
 
         return res.status(HttpStatus.OK).json({
-            data: users,
+            data: shops,
             message: 'Returning all products.',
             status: HttpStatus.OK
         });
     }
 
     @Get('/:id')
-    async getUserById(@Res() res, @Param('id') id): Promise<JSON> {
+    async getShopById(@Res() res, @Param('id') id): Promise<JSON> {
         let jsonResponse;
 
         try {
-            const user = await this.shopService.getShop(id);
+            const shop = await this.shopService.getShop(id);
             jsonResponse = {
-                data: user,
+                data: shop,
                 message: `Returning product ${id}.`,
                 status: HttpStatus.OK
             }
@@ -76,13 +76,13 @@ export class ShopController {
     }
 
     @Put(':id')
-    async updateUser(@Res() res, @Body() createUserDTO: CreateShopDTO, @Param('id') id): Promise<JSON> {
+    async updateShop(@Res() res, @Body() createShopDTO: CreateShopDTO, @Param('id') id): Promise<JSON> {
         let jsonResponse;
 
         try {
-            const user = await this.shopService.updateShop(id, createUserDTO);
+            const shop = await this.shopService.updateShop(id, createShopDTO);
             jsonResponse = {
-                data: user,
+                data: shop,
                 message: `Returning updated product ${id}.`,
                 status: HttpStatus.OK
             }

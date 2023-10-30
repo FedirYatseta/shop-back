@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import configuration from './config/configuration';
 import { CloudinaryProvider } from './cloudinary/cloudinary.provider';
 import { ShopModule } from './shop/shop.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -22,6 +23,7 @@ import { ShopModule } from './shop/shop.module';
       inject: [ConfigService],
     }
     ),
+    AuthModule,
     UserModule,
     CloudinaryModule,
     ShopModule
