@@ -1,13 +1,14 @@
-import { Controller, Delete, Get, Post, Put, Res, HttpStatus, Body, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, Res, HttpStatus, Body, Param, NotFoundException, UseGuards } from '@nestjs/common';
 import { CreateProdDTO } from './dto/create-product.dto';
 import { ProductService } from './product.service';
+import { AuthGuard } from '@nestjs/passport';
 
 
 @Controller('product')
 export class ProductController {
 
     constructor(private productService: ProductService) { }
-
+    @UseGuards(AuthGuard('jwt'))
     @Post('/create')
     async createProduct(@Res() res, @Body() createProductDTO: CreateProdDTO): Promise<JSON> {
 
@@ -19,7 +20,7 @@ export class ProductController {
             status: HttpStatus.OK
         });
     }
-
+    @UseGuards(AuthGuard('jwt'))
     @Delete('/:id')
     async deleteProduct(@Res() res, @Param('id') id): Promise<JSON> {
         let jsonResponse;
@@ -74,7 +75,7 @@ export class ProductController {
 
         return res.status(jsonResponse.status).json(jsonResponse);
     }
-
+    @UseGuards(AuthGuard('jwt'))
     @Put(':id')
     async updateProduct(@Res() res, @Body() createProductDTO: CreateProdDTO, @Param('id') id): Promise<JSON> {
         let jsonResponse;

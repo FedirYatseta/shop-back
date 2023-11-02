@@ -7,5 +7,10 @@ export class CreateProdDTO {
     price: number;
     color: string;
     type: string;
+    specification: []
+    describe: string
+    newProduct: boolean
+    hitProduct: boolean
+    structure: []
     imageSrc: []
 }

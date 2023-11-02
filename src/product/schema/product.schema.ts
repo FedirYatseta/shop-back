@@ -33,9 +33,29 @@ export const ProductSchema = new Schema({
         type: String,
         required: true
     },
+    specification: {
+        type: [],
+        required: false
+    },
+    describe: {
+        type: String,
+        required: true
+    },
+    structure: {
+        type: [],
+        required: false
+    },
     imageSrc: {
         type: [],
         required: true
+    },
+    newProduct: {
+        type: Boolean,
+        required: false
+    },
+    hitProduct: {
+        type: Boolean,
+        required: false
     },
     createAt: {
         type: Date,
