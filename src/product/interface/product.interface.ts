@@ -4,7 +4,7 @@ export interface Product extends Document {
     id: string;
     idShop: string;
     title: string;
-    size: number;
+    size: string;
     oldPrice: number;
     price: number;
     color: string;

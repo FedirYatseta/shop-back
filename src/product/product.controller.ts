@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Post, Put, Res, HttpStatus, Body, Param, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, Post, Put, Res, HttpStatus, Body, Param, Query, UseGuards } from '@nestjs/common';
 import { CreateProdDTO } from './dto/create-product.dto';
 import { ProductService } from './product.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -44,8 +44,8 @@ export class ProductController {
     }
 
     @Get('/getall/:id')
-    async getAllProducts(@Res() res, @Param('id') id): Promise<JSON> {
-        const products = await this.productService.getProducts(id);
+    async getAllProducts(@Res() res, @Param('id') id, @Query('type') type): Promise<JSON> {
+        const products = await this.productService.getProducts(id, type);
 
         return res.status(HttpStatus.OK).json({
             data: products,

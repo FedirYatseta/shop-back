@@ -14,7 +14,7 @@ export const ProductSchema = new Schema({
         required: true
     },
     size: {
-        type: Number,
+        type: String,
         required: true
     },
     oldPrice: {

@@ -38,7 +38,7 @@ export class ProductService {
         const message = `
             <b>Ім'я:</b> ${order.name} <br/>
             <b>Телефон:</b> ${order.phone} <br/>
-            <b>Замовлення:</b> ${orderDetails.join('<br/>')}
+            <b>Замовлення:</b> <br/> ${orderDetails.join('<br/>')}
           `;
 
         const transporter = nodemailer.createTransport({
