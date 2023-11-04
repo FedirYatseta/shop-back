@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from './interface/product.interface';
 import { CreateProdDTO } from './dto/create-product.dto';
-import { Filter } from './interface/Filter.interface';
 
 @Injectable()
 export class ProductService {
@@ -25,12 +24,12 @@ export class ProductService {
 
     async getProducts(idShop: string, type?: string): Promise<Product[]> {
 
-        const filter = { idShop } as Filter
+        const filter: any = { idShop }
+
 
         if (type) {
             filter.type = type;
         }
-
 
         const product = await this.productModel.find(filter);
         return product;

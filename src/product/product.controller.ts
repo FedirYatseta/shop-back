@@ -46,6 +46,7 @@ export class ProductController {
     @Get('/getall/:id')
     async getAllProducts(@Res() res, @Param('id') id, @Query('type') type): Promise<JSON> {
         const products = await this.productService.getProducts(id, type);
+        
 
         return res.status(HttpStatus.OK).json({
             data: products,

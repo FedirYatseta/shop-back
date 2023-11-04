@@ -8,6 +8,7 @@ import { CloudinaryProvider } from './cloudinary/cloudinary.provider';
 import { ShopModule } from './shop/shop.module';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
+import { ConfigurationModule } from './configuration/configuration.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -28,7 +29,8 @@ import { OrderModule } from './order/order.module';
     UserModule,
     CloudinaryModule,
     ShopModule,
-    OrderModule
+    OrderModule,
+    ConfigurationModule
   ],
   controllers: [],
   providers: [CloudinaryProvider],
