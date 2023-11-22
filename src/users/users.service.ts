@@ -2,17 +2,22 @@ import { omit } from 'lodash';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from './schemas/user.schema';
+import { User } from './schemas/user.schema';
 import { PasswordsService } from 'src/password/password.service';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(User.name)
-    private usersModel: Model<UserDocument>,
+    @InjectModel('User')
+    private usersModel: Model<User>,
     private passwordsService: PasswordsService,
-  ) {}
+  ) { }
 
+
+  async create(user: User): Promise<User> {
+    const newUser = new this.usersModel(user);
+    return await newUser.save();
+  }
   async findByEmail(email: string): Promise<User> {
     const user = await this.usersModel.findOne({ email });
 
@@ -41,6 +46,7 @@ export class UsersService {
       { new: true },
     );
   }
+
 
   async getProfileInfo(userId: string) {
     const user = await this.usersModel.findById(userId);

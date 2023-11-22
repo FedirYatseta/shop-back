@@ -9,10 +9,9 @@ export interface Product extends Document {
     price: number;
     color: string;
     type: string;
-    specification: []
     describe: string
-    structure: []
     newProduct: boolean
     hitProduct: boolean
+    sale: boolean
     imageSrc: []
 }

@@ -27,24 +27,18 @@ export const ProductSchema = new Schema({
     },
     color: {
         type: String,
-        required: true
+        required: false
     },
     type: {
         type: String,
         required: true
     },
-    specification: {
-        type: [],
-        required: false
-    },
+
     describe: {
         type: String,
         required: true
     },
-    structure: {
-        type: [],
-        required: false
-    },
+
     imageSrc: {
         type: [],
         required: true
@@ -54,6 +48,10 @@ export const ProductSchema = new Schema({
         required: false
     },
     hitProduct: {
+        type: Boolean,
+        required: false
+    },
+    sale: {
         type: Boolean,
         required: false
     },

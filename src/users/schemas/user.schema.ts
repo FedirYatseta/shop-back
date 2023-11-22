@@ -1,24 +1,17 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+// user.model.ts
+import { Schema, Document } from 'mongoose';
 
-export type UserDocument = User & Document;
+export const UserSchema = new Schema({
+  name: String,
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: String,
+});
 
-@Schema({ versionKey: false })
-export class User {
-  _id: string;
-
-  id?: string;
-
-  @Prop()
-  password: string;
-
-  @Prop()
-  email: string;
-
-  @Prop()
+export interface User extends Document {
   name: string;
+  email: string;
+  password: string;
 }
-
-export const UserShema = SchemaFactory.createForClass(User);
-
-UserShema.set('toObject', { virtuals: true });
