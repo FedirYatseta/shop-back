@@ -2,6 +2,7 @@ import { Controller, Delete, Get, Post, Put, Res, HttpStatus, Body, Param, Query
 import { CreateProdDTO } from './dto/create-product.dto';
 import { ProductService } from './product.service';
 import { AuthGuard } from '@nestjs/passport';
+import { GetProductDto } from './dto/get-product.dto';
 
 
 @Controller('product')
@@ -44,9 +45,9 @@ export class ProductController {
     }
 
     @Get('/getall/:id')
-    async getAllProducts(@Res() res, @Param('id') id, @Query('type') type): Promise<JSON> {
-        const products = await this.productService.getProducts(id, type);
-        
+    async getAllProducts(@Res() res, @Param('id') id, @Query() query: GetProductDto): Promise<JSON> {
+        const products = await this.productService.getProducts(id, query);
+
 
         return res.status(HttpStatus.OK).json({
             data: products,

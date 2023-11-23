@@ -1,7 +1,5 @@
-import { Document } from 'mongoose';
-
-export interface Filter extends Document {
-    idShop: string;
-    type: string;
-
+export interface ProductFilters {
+    type?: string;
+    idShop?: string;
+    _id?: { $lt: string };
 }

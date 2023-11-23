@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from './interface/product.interface';
 import { CreateProdDTO } from './dto/create-product.dto';
+import { GetProductDto } from './dto/get-product.dto';
+import { ProductFilters } from './interface/filter.interface';
 
 @Injectable()
 export class ProductService {
@@ -22,17 +24,23 @@ export class ProductService {
         return product;
     }
 
-    async getProducts(idShop: string, type?: string): Promise<Product[]> {
+    async getProducts(idShop: string, query: GetProductDto): Promise<Product[]> {
+        const filters = this.parseFilters(query, idShop);
 
-        const filter: any = { idShop }
-
-
-        if (type) {
-            filter.type = type;
-        }
-
-        const product = await this.productModel.find(filter);
+        const product = await this.productModel.find(filters).sort({ _id: -1 }).limit(query.limit || 5).exec();
         return product;
+    }
+
+    parseFilters(query: GetProductDto, idShop: string) {
+        const filters: ProductFilters = {};
+
+        filters.idShop = idShop;
+
+        if (query.cursor) filters._id = { $lt: query.cursor };
+
+        if (query.type) filters.type = query.type;
+
+        return filters;
     }
 
     async updateProduct(productID: string, createProductDTO: CreateProdDTO): Promise<Product> {
