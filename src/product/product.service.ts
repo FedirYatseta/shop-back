@@ -9,6 +9,21 @@ import { ProductFilters } from './interface/filter.interface';
 @Injectable()
 export class ProductService {
     constructor(@InjectModel('Product') private productModel: Model<Product>) { }
+
+    parseFilters(query: GetProductDto, idShop: string) {
+
+        const filters: ProductFilters = {};
+
+        filters.idShop = idShop;
+
+        if (query.cursor) filters._id = { $lt: query.cursor };
+
+        if (query.type) filters.type = query.type;
+        if (query.hit) filters.hitProduct = query.hit;
+        if (query.sale) filters.sale = query.sale;
+        if (query.new) filters.newProduct = query.new;
+        return filters;
+    }
     async createProduct(createProductDTO: CreateProdDTO): Promise<Product> {
         const product = new this.productModel(createProductDTO);
         return await product.save();
@@ -26,22 +41,13 @@ export class ProductService {
 
     async getProducts(idShop: string, query: GetProductDto): Promise<Product[]> {
         const filters = this.parseFilters(query, idShop);
+        console.log('filters', filters)
 
         const product = await this.productModel.find(filters).sort({ _id: -1 }).limit(query.limit || 5).exec();
         return product;
     }
 
-    parseFilters(query: GetProductDto, idShop: string) {
-        const filters: ProductFilters = {};
 
-        filters.idShop = idShop;
-
-        if (query.cursor) filters._id = { $lt: query.cursor };
-
-        if (query.type) filters.type = query.type;
-
-        return filters;
-    }
 
     async updateProduct(productID: string, createProductDTO: CreateProdDTO): Promise<Product> {
         const updatedProduct = await this.productModel.findByIdAndUpdate(productID,

@@ -11,5 +11,6 @@ export class CreateProdDTO {
     newProduct: boolean
     hitProduct: boolean
     sale: boolean
+    videoUrl: string
     imageSrc: []
 }

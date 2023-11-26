@@ -55,6 +55,10 @@ export const ProductSchema = new Schema({
         type: Boolean,
         required: false
     },
+    videoUrl: {
+        type: String,
+        required: false
+    },
     createAt: {
         type: Date,
         default: Date.now

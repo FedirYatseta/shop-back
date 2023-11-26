@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './product/product.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
@@ -9,6 +9,9 @@ import { ShopModule } from './shop/shop.module';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
 import { ConfigurationModule } from './configuration/configuration.module';
+import { CompressionMiddleware } from './middleware/compression.middleware';
+import { APP_PIPE } from '@nestjs/core';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -30,9 +33,13 @@ import { ConfigurationModule } from './configuration/configuration.module';
     CloudinaryModule,
     ShopModule,
     OrderModule,
-    ConfigurationModule
+    ConfigurationModule,
+
   ],
   controllers: [],
-  providers: [CloudinaryProvider],
+  providers: [CloudinaryProvider, {
+    provide: APP_PIPE,
+    useClass: ValidationPipe,
+  }, CompressionMiddleware],
 })
 export class AppModule { }
