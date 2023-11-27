@@ -2,6 +2,7 @@ export default () => ({
   port: parseInt(process.env.PORT) || 3002,
   hostname: process.env.HOSTNAME || '127.0.0.1',
   mongoUri: process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/admin',
+  dbName: process.env.MONGODB_DB || 'test',
   jwtSecret: process.env.JWT_SECRET || 'secret',
   jwtExpiresInt: parseInt(process.env.JWT_EXPIRES_IN) || 3600,
   CLOUDINARY: 'Cloudinary',

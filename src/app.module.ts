@@ -17,12 +17,14 @@ import { APP_PIPE } from '@nestjs/core';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
+
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => {
         return {
           uri: configService.get<string>('mongoUri'),
+          dbName: configService.get<string>('dbName')
         };
       },
       inject: [ConfigService],
