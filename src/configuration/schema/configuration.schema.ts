@@ -9,17 +9,21 @@ export const ConfigurationSchema = new Schema({
         type: String,
         required: true
     },
+    saleTime: {
+        type: String,
+        required: false
+    },
     collapse: {
         type: [],
-        required: true
+        required: false
     },
     condition: {
         type: [],
-        required: true
+        required: false
     },
     quality: {
         type: [],
-        required: true
+        required: false
     },
 
 });
