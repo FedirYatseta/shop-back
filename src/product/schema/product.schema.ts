@@ -15,15 +15,15 @@ export const ProductSchema = new Schema({
     },
     size: {
         type: String,
-        required: true
+        required: false
     },
     oldPrice: {
         type: Number,
-        required: true
+        required: false
     },
     price: {
         type: Number,
-        required: true
+        required: false
     },
     color: {
         type: String,
@@ -36,12 +36,12 @@ export const ProductSchema = new Schema({
 
     describe: {
         type: String,
-        required: true
+        required: false
     },
 
     imageSrc: {
         type: [],
-        required: true
+        required: false
     },
     newProduct: {
         type: Boolean,
