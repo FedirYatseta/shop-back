@@ -1,54 +1,67 @@
-import { Controller, Delete, Get, Post, Put, Res, HttpStatus, Body, Param, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Put, Res, HttpStatus, Body, Param, UseGuards } from '@nestjs/common';
 import { CreateOrderDTO } from './dto/create-order.dto';
-import { ProductService } from './order.service';
+import { OrderService } from './order.service';
 import { AuthGuard } from '@nestjs/passport';
+import { SendMessageToEmailDTO } from './dto/messageofuser.dto';
 
 
 @Controller('order')
-export class ProductController {
+export class OrderController {
 
-    constructor(private productService: ProductService) { }
+    constructor(private orderService: OrderService) { }
 
     @Post('/create')
-    async createProduct(@Res() res, @Body() createProductDTO: CreateOrderDTO): Promise<JSON> {
+    async createOrder(@Res() res, @Body() createOrderDTO: CreateOrderDTO): Promise<JSON> {
 
-        const createdProduct = await this.productService.createProduct(createProductDTO);
+        const createdOrder = await this.orderService.createOrder(createOrderDTO);
 
         return res.status(HttpStatus.OK).json({
-            data: createdProduct,
+            data: createdOrder,
             message: 'Order was successfully created.',
             status: HttpStatus.OK
         });
     }
 
+    @Post('/send')
+    async sendMessage(@Res() res, @Body() createMessageDTO: SendMessageToEmailDTO,): Promise<JSON> {
 
-    @Get('/getall/:id')
-    async getAllProducts(@Res() res, @Param('id') id): Promise<JSON> {
-        const products = await this.productService.getProducts(id);
+        const createdMessage = await this.orderService.sendMessage(createMessageDTO);
 
         return res.status(HttpStatus.OK).json({
-            data: products,
-            message: 'Returning all products.',
+            data: createdMessage,
+            message: 'Message was successfully ',
             status: HttpStatus.OK
         });
     }
 
     @UseGuards(AuthGuard('jwt'))
-    @Put(':id')
-    async updateProduct(@Res() res, @Body() createProductDTO: CreateOrderDTO, @Param('id') id): Promise<JSON> {
+    @Get('/getall/:id')
+    async getAllOrders(@Res() res, @Param('id') id): Promise<JSON> {
+        const orders = await this.orderService.getOrders(id);
+
+        return res.status(HttpStatus.OK).json({
+            data: orders,
+            message: 'Returning all orders.',
+            status: HttpStatus.OK
+        });
+    }
+
+    @UseGuards(AuthGuard('jwt'))
+    @Put('update/:id')
+    async updateOrder(@Res() res, @Body() createOrderDTO: CreateOrderDTO, @Param('id') id): Promise<JSON> {
         let jsonResponse;
 
         try {
-            const product = await this.productService.updateProduct(id, createProductDTO);
+            const order = await this.orderService.updateOrder(id, createOrderDTO);
             jsonResponse = {
-                data: product,
-                message: `Returning updated product ${id}.`,
+                data: order,
+                message: `Returning updated order ${id}.`,
                 status: HttpStatus.OK
             }
         } catch (error) {
             jsonResponse = jsonResponse = {
                 data: null,
-                message: `Product with id ${id} was not found.`,
+                message: `Order with id ${id} was not found.`,
                 status: HttpStatus.NOT_FOUND
             }
         }

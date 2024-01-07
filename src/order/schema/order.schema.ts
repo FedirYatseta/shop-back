@@ -9,6 +9,15 @@ export const OrderSchema = new Schema({
         type: String,
         required: true
     },
+    idShop: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        default: 'New'
+    },
     order: {
         type: [],
         required: true

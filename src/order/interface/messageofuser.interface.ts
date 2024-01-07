@@ -1,8 +1,8 @@
 import { Document } from 'mongoose';
 
-export interface Order extends Document {
+export interface MessageToEmail extends Document {
     name: string;
     phone: string;
     idShop: string;
-    orders: [];
+    description: string;
 }

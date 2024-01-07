@@ -17,7 +17,7 @@ import { APP_PIPE } from '@nestjs/core';
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
-
+      envFilePath: '.env',
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
